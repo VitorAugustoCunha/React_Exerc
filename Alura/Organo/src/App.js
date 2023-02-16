@@ -1,6 +1,7 @@
 import Form from './Components/Form';
 import Banner from './Components/Banner';
 import Team from './Components/Team';
+import Footer from './Components/Footer'
 import { useState } from 'react';
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
   const [colaboradores, setColaboradores] = useState([])
 
   const onColaboradorAdd = (colaborador) => {
+    debugger
     console.log(colaborador)
     setColaboradores([...colaboradores, colaborador])
   }
@@ -47,8 +49,9 @@ function App() {
   return (
     <div className="App">
       <Banner/>
-      <Form onColaboradorCreated={colaborador => onColaboradorAdd(colaborador)}/>
-      {teams.map(team => <Team name={team.nome} key={team.nome} corPrimaria={team.corPrimaria} corSecundaria={team.corSecundaria}></Team>)}
+      <Form team={teams.map(team => team.nome)} onColaboradorCreated={colaborador => onColaboradorAdd(colaborador)}/>
+      {teams.map(team => <Team name={team.nome} key={team.nome} corPrimaria={team.corPrimaria} corSecundaria={team.corSecundaria} colab={colaboradores.filter(colaborador => colaborador.time === team.nome)}></Team>)}
+      <Footer/>
     </div>
   );
 }
